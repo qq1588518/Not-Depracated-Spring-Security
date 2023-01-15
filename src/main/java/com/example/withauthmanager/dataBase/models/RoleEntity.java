@@ -3,9 +3,6 @@ package com.example.withauthmanager.dataBase.models;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.beans.factory.annotation.Autowired;
-
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -17,7 +14,12 @@ public class RoleEntity {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @OneToMany(mappedBy = "roleEntity")
+    @ManyToMany
+    @JoinTable(
+            name="extra_table",
+            joinColumns = @JoinColumn(name = "role_id"),
+            inverseJoinColumns = @JoinColumn(name = "authority_id")
+    )
     private Set<AuthorityEntity> authorityEntityList;
 
     private String roleValue;

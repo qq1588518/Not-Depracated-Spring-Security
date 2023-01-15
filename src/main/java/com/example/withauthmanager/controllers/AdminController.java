@@ -1,5 +1,6 @@
 package com.example.withauthmanager.controllers;
 
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -9,7 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class AdminController {
 
     @GetMapping("/info")
-    public String admin() {
-        return "You are admin!";
+    public String admin(Authentication authentication) {
+        return "You are admin!\n" + authentication.getAuthorities() +
+                "\nYour email:" + authentication.getPrincipal().toString();
     }
 }
